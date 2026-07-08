@@ -71,4 +71,4 @@ python3 scripts/wiki_linter.py
 
 ## 🛡️ License
 
-This project is licensed under the MIT License. Feel free to use, modify, and distribute it.
+This project is licensed under the Elastic License 2.0 (ELv2). See the [LICENSE](LICENSE) file for the full license text.

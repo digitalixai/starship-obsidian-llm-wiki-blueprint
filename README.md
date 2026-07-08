@@ -26,6 +26,20 @@ graph TD
 
 ---
 
+## 🧠 Solving the "Token Burn" Problem (LMC vs. Traditional Approaches)
+
+In standard agentic memory or naive RAG workflows, the LLM is forced to read massive directories of markdown files or scan the entire knowledge base to understand context. This causes two major issues in production:
+1. **Context Explosion (Token Burn):** Costs skyrocket and context windows fill up with redundant information.
+2. **Knowledge Drift:** The agent gets confused by stale, long-form notes that might contradict newer developments.
+
+### The LMC Solution: Local Metadata Indexing
+This blueprint solves this by introducing a local-first **index-driven memory retrieval** pattern:
+* **The Index:** A highly optimized, lightweight metadata index containing only node summaries, tags, and last-updated timestamps (managed via Engram/KIs).
+* **Targeted Recall:** When queried, the agent *first* checks this compact index file. It identifies only the specific files containing the relevant concept or entity, and loads *only* those files.
+* **Result:** Near-zero token waste, faster reasoning cycles, and precise context injection.
+
+---
+
 ## 🛠️ Included Tools
 
 * **`AGENTS.md`**: The system instructions that dictate how the LLM should act as a disciplined wiki maintainer (how to create pages, handle contradictions, and link notes).

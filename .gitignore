@@ -1,5 +1,9 @@
 # Ignore internal documentation and private business strategies
 docs/
+2026*_IMPLEMENTATION_PLAN.md
+2026*_TASK_LIST.md
+2026*_WALKTHROUGH.md
+2026*_POSTS_X.md
 
 # Local configuration
 .env

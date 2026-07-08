@@ -1,0 +1,16 @@
+# Ignore internal documentation and private business strategies
+docs/
+
+# Local configuration
+.env
+.env.local
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS metadata
+.DS_Store
+Thumbs.db

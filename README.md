@@ -2,7 +2,7 @@
 
 A production-proven blueprint for building and maintaining a local, persistent, and compounding knowledge base (LLM-Wiki) across multiple physical nodes.
 
-This project is inspired by Andrej Karpathy's `llm-wiki` concept but resolves key production challenges: **multi-device synchronization** (using Syncthing + Git) and **token economy** (using static metadata indexing to prevent context explosion).
+This project provides a robust solution for two major production challenges in agentic workflows: **multi-device synchronization** (using Syncthing + Git) and **token economy** (using static metadata indexing to prevent context explosion).
 
 ---
 

@@ -9,7 +9,7 @@ import os
 import sys
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 
 # 1. Configuration (Fallback to environment variables or local paths)
 VAULT_PATH = os.environ.get("OBSIDIAN_VAULT_PATH")
@@ -114,16 +114,28 @@ def sync_transcript(conv_id=None, project_name=None):
                 if not content:
                     continue
                     
+                created_at = data.get("created_at")
+                step_time = ""
+                if created_at:
+                    try:
+                        s_dt = datetime.strptime(created_at[:19], "%Y-%m-%dT%H:%M:%S")
+                        local_dt = s_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
+                        step_time = local_dt.strftime('%H:%M:%S')
+                    except Exception:
+                        pass
+
                 if m_type == "USER_INPUT" and source == "USER_EXPLICIT":
                     clean_content = re.sub(r'</?USER_REQUEST>', '', content).strip()
                     interactions.append({
                         "role": "User",
-                        "content": clean_content
+                        "content": clean_content,
+                        "time": step_time
                     })
                 elif m_type == "PLANNER_RESPONSE" and source == "MODEL":
                     interactions.append({
                         "role": "Antigravity Agent",
-                        "content": content.strip()
+                        "content": content.strip(),
+                        "time": step_time
                     })
             except Exception as e:
                 pass
@@ -155,7 +167,8 @@ def sync_transcript(conv_id=None, project_name=None):
     for idx, turn in enumerate(interactions):
         role = turn["role"]
         body = turn["content"]
-        block += f"### Turn {idx+1} — {role}:\n{body}\n\n"
+        time_suffix = f" [{turn['time']}]" if turn.get("time") else ""
+        block += f"### Turn {idx+1} — {role}{time_suffix}:\n{body}\n\n"
         block += "--\n\n"
     block += f"{end_marker}\n"
 
